@@ -2,6 +2,7 @@ import { useState, useRef, useCallback } from 'react';
 
 const NODE_TYPES = ['station', 'junction', 'siding', 'turnout', 'signal'];
 const NODE_RADIUS = 22;
+const NODE_RADIUS_JUNCTION = 11;
 
 const ASPECT_COLOURS = { 0: '#e53935', 1: '#fb8c00', 2: '#43a047' };
 const TURNOUT_COLOURS = { true: '#00bcd4', false: '#607d8b' };
@@ -212,8 +213,8 @@ export default function LayoutMap({ layoutMap, turnouts, signals, send }) {
             onDoubleClick={(e) => handleNodeDblClick(e, node)}
             onMouseDown={(e) => handleMouseDown(e, node)}
           >
-            <circle r={NODE_RADIUS} fill={nodeColour(node)} stroke={linking === node.id ? '#00e5ff' : '#263238'} strokeWidth={2} />
-            <text className="layout-node__label" textAnchor="middle" dy="0.35em" fontSize={10}>
+            <circle r={node.type === 'junction' ? NODE_RADIUS_JUNCTION : NODE_RADIUS} fill={nodeColour(node)} stroke={linking === node.id ? '#00e5ff' : '#263238'} strokeWidth={2} />
+            <text className="layout-node__label" textAnchor="middle" dy="0.35em" fontSize={node.type === 'junction' ? 7 : 10}>
               {node.label}
             </text>
           </g>
